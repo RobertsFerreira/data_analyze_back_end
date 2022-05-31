@@ -3,8 +3,6 @@ import pandas as pd
 
 def removeSemDados(respostas):
     return list(filter(lambda x: x != 'Sem dados', respostas))
-    
-
 
 def main():
     df = pd.read_csv('data/data_pesquisa.csv', delimiter=';')
@@ -13,7 +11,7 @@ def main():
 
     listAllresp = []
 
-    for index, row in df.iterrows():
+    for _, row in df.iterrows():
         listResps = row.values.tolist()
         listResps = removeSemDados(listResps)
         # print(listResps)
