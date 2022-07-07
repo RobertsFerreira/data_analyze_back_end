@@ -1,0 +1,6 @@
+flask
+waitress
+numpy
+pandas
+mlxtend
+typing_extensions
