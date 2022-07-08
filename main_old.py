@@ -7,14 +7,14 @@ def removeSemDados(respostas):
     return list(filter(lambda x: x != 'Sem dados', respostas))
 
 def main():
-    df = pd.read_csv('data\data_pesquisa.csv', delimiter=';')
+    df = pd.read_csv('data\data_pesquisa2.csv', delimiter=';')
     df.replace(np.nan, 'Sem dados', inplace=True)
     df.replace('0', 'Sem dados', inplace=True)
     print(df)
     print()
 
     listAllresp = []
-
+ 
     for _, row in df.iterrows():
         listResps = row.values.tolist()
         listResps = removeSemDados(listResps)
