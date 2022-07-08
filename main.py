@@ -1,9 +1,9 @@
 from flask import Flask, request, flash
 from werkzeug.exceptions import *
 from models.error.generic_error import FileSelectError
-from modules.configuration.models.config import Configuration
+from module.configuration.models.config import Configuration
 from models.response_return.response_return_model import ResponseReturnModel
-from modules.files.file_store import FileStore
+from module.files.file_store import FileStore
 
 app = Flask('__main__')
 
