@@ -1,6 +1,7 @@
 from flask import Flask, request, flash
 from werkzeug.exceptions import *
 from models.error.generic_error import FileSelectError
+from module.apriori.apriori import Apriori
 from module.configuration.models.config import Configuration
 from models.response_return.response_return_model import ResponseReturnModel
 from module.files.file_store import FileStore
@@ -10,10 +11,20 @@ app = Flask('__main__')
 @app.route('/upload', methods=['POST'])
 def upload_file():
     try :
-        file = request.files['file']
+        fileRequest = request.files['file']
         fileStore = FileStore()
-        file = fileStore.formatDateFile(file)
-        responseReturn = ResponseReturnModel(message=f'Nome do arquivo: {file}', statusCode=200, body={'file': file})
+        file = fileStore.formatDateFile(fileRequest)
+        apriori = Apriori(
+            data=file
+        )
+        apriori.generateCombinations()
+        transactions = apriori.generatedTransaction()
+        result = apriori.executeApriori(transactions)
+        responseReturn = ResponseReturnModel(
+            message=f'Upload do arquivo com sucesso: {fileRequest.filename}', 
+                statusCode=200, 
+                body=result
+                )
         jsonResponse = responseReturn.toJson()
         return jsonResponse
     except BadRequestKeyError as e:

@@ -1,8 +1,16 @@
 {
     "cSpell.words": [
+        "Allresp",
+        "apriori",
+        "colnames",
+        "consequents",
         "ddns",
+        "iterrows",
+        "mlxtend",
         "PATHFILE",
+        "Resps",
         "robertsilva",
+        "saude",
         "werkzeug"
     ]
 }

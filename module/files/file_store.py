@@ -28,5 +28,4 @@ class FileStore():
         df = pd.read_csv(fileIo, delimiter=';')
         df.replace(np.nan, 'Sem dados', inplace=True)
         df.replace('0', 'Sem dados', inplace=True)
-        print(df)
-        return file.filename
+        return df
