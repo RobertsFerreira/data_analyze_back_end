@@ -9,8 +9,8 @@ class AprioriResult():
     def toMap(self):
         return {
             "lift": self.lift, 
-            "consequent": self.consequent,
             "antecedent": self.antecedent,
+            "consequent": self.consequent,
         }
 
     def toJson(self):

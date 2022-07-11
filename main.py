@@ -1,3 +1,4 @@
+import traceback
 from flask import Flask, request, flash
 from werkzeug.exceptions import *
 from models.error.generic_error import FileSelectError
@@ -12,6 +13,8 @@ app = Flask('__main__')
 def upload_file():
     try :
         fileRequest = request.files['file']
+        minSupport = float(request.form['minSupport'])
+        minThreshold = float(request.form['minThreshold'])
         fileStore = FileStore()
         file = fileStore.formatDateFile(fileRequest)
         apriori = Apriori(
@@ -19,7 +22,7 @@ def upload_file():
         )
         apriori.generateCombinations()
         transactions = apriori.generatedTransaction()
-        result = apriori.executeApriori(transactions)
+        result = apriori.executeApriori(transactions, minSupport, minThreshold)
         responseReturn = ResponseReturnModel(
             message=f'Upload do arquivo com sucesso: {fileRequest.filename}', 
                 statusCode=200, 
@@ -37,6 +40,7 @@ def upload_file():
         return jsonResponse, responseReturn.statusCode
     except Exception as e:
         responseReturn = ResponseReturnModel(message=e, statusCode=500, body={})
+        print(traceback.format_exc())
         jsonResponse = responseReturn.toJson()
         return jsonResponse, responseReturn.statusCode
 
