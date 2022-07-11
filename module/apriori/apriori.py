@@ -32,24 +32,19 @@ class Apriori:
         lift = list(rules['lift'])
         consequents = rules['consequents']
         antecedents = rules['antecedents']
+        results = []
 
-        bestItem = None
-        bestIndex = 0
         for index, item in enumerate(lift):
-            if(index == 0):
-                bestItem = item
-            if(item > bestItem):
-                bestItem = item
-                bestIndex = index 
+            consequent = list(consequents[index])[0]
+            antecedent = list(antecedents[index])[0]
+            aprioriResult = AprioriResult(
+                lift=item,
+                consequent=consequent,
+                antecedent=antecedent
+            )
 
-        consequent = list(consequents[bestIndex])[0]
-        antecedent = list(antecedents[bestIndex])[0]
+            aprioriMap = aprioriResult.toMap()
+            results.append(aprioriMap)
 
-        aprioriResult = AprioriResult(
-            lift=bestItem,
-            consequent=consequent,
-            antecedent=antecedent
-        )
-
-        return aprioriResult.toMap()
+        return results
 
